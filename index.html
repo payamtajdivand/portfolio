@@ -66,6 +66,14 @@
         letter-spacing: 0.05em;
         color: var(--text);
         text-decoration: none;
+        border : 1px solid var(--line);
+        padding: 0.25rem 0.75rem;
+        transition: border-color 0.2s, color 0.2s;
+        border-radius: 0.5rem ;
+      }
+      .nav-logo:hover {
+        border-color: var(--muted);
+        color: var(--muted);
       }
       .nav-links {
         display: flex;
@@ -378,7 +386,7 @@
   </head>
   <body>
     <nav id="navbar">
-      <a class="nav-logo" href="#">Back to Main</a>
+      <a class="nav-logo" href="#">PT</a>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
