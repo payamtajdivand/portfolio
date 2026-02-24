@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payam Tajdivand — Software Engineer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #f7f5f2;
+        --text: #1a1a1a;
+        --muted: #8a8580;
+        --accent: #c9472f;
+        --line: #e0dcd7;
+        --serif: "DM Serif Display", Georgia, serif;
+        --mono: "DM Mono", monospace;
+        --sans: "DM Sans", sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--sans);
+        background: var(--bg);
+        color: var(--text);
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 3rem;
+        background: var(--bg);
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.3s;
+      }
+      nav.scrolled {
+        border-color: var(--line);
+      }
+      .nav-logo {
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        font-weight: 400;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      /* SECTIONS */
+      section {
+        padding: 7rem 3rem;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      /* HERO */
+      #hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 6rem;
+        opacity: 0;
+        animation: fadeUp 0.8s ease forwards 0.2s;
+      }
+      .hero-inner {
+        display: flex;
+        align-items: center;
+        gap: 4rem;
+      }
+      .hero-text {
+        flex: 1;
+      }
+      .hero-image-wrap {
+        position: relative;
+        flex-shrink: 0;
+      }
+      .hero-image-wrap::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 110%;
+        height: 115%;
+        background: radial-gradient(ellipse at center, #e8e4de 0%, #d4cfc7 50%, #c9c4bb 100%);
+        border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+        z-index: 0;
+      }
+      .hero-image {
+        position: relative;
+        width: 320px;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 160px 160px 20px 20px;
+        z-index: 1;
+      }
+      .hero-tag {
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        color: var(--accent);
+        letter-spacing: 0.1em;
+        margin-bottom: 1.5rem;
+      }
+      .hero-name {
+        font-family: var(--serif);
+        font-size: clamp(3rem, 8vw, 6rem);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin-bottom: 1.5rem;
+      }
+      .hero-name em {
+        font-style: italic;
+        color: var(--muted);
+      }
+      .hero-desc {
+        font-size: 1.1rem;
+        color: var(--muted);
+        max-width: 480px;
+        line-height: 1.75;
+        font-weight: 300;
+      }
+      .hero-scroll {
+        margin-top: 4rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+      }
+      .hero-scroll::before {
+        content: "";
+        display: block;
+        width: 40px;
+        height: 1px;
+        background: var(--muted);
+      }
+
+      /* DIVIDER */
+      .divider {
+        width: 100%;
+        height: 1px;
+        background: var(--line);
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      /* ABOUT */
+      #about {
+        opacity: 0;
+      }
+      .section-label {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: var(--accent);
+        letter-spacing: 0.12em;
+        margin-bottom: 3rem;
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.6fr;
+        gap: 4rem;
+        align-items: start;
+      }
+      .about-heading {
+        font-family: var(--serif);
+        font-size: 2.5rem;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+      }
+      .about-heading em {
+        font-style: italic;
+        color: var(--muted);
+      }
+      .about-text {
+        font-size: 1rem;
+        color: #3a3835;
+        line-height: 1.85;
+        font-weight: 300;
+      }
+      .about-text p + p {
+        margin-top: 1.25rem;
+      }
+      .skills-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 2rem;
+      }
+      .skill-tag {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        padding: 0.3rem 0.75rem;
+        border: 1px solid var(--line);
+        border-radius: 2px;
+        color: var(--muted);
+        letter-spacing: 0.04em;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .skill-tag:hover {
+        border-color: var(--text);
+        color: var(--text);
+      }
+
+
+
+      /* CONTACT */
+      #contact {
+        opacity: 0;
+      }
+      .contact-heading {
+        font-family: var(--serif);
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        margin-bottom: 2.5rem;
+      }
+      .contact-heading em {
+        font-style: italic;
+        color: var(--muted);
+      }
+      .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .contact-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 0;
+        border-bottom: 1px solid var(--line);
+        text-decoration: none;
+        color: var(--text);
+        transition: opacity 0.2s;
+      }
+      .contact-link:first-child {
+        border-top: 1px solid var(--line);
+      }
+      .contact-link:hover {
+        opacity: 0.5;
+      }
+      .contact-link-name {
+        font-family: var(--serif);
+        font-size: 1.5rem;
+        letter-spacing: -0.01em;
+      }
+      .contact-link-url {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+      }
+      .arrow {
+        font-size: 1.2rem;
+        color: var(--muted);
+      }
+
+      /* FOOTER */
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 2rem 3rem;
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      footer p {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .visible {
+        animation: fadeUp 0.7s ease forwards;
+      }
+
+      @media (max-width: 900px) {
+        .hero-inner {
+          flex-direction: column;
+          text-align: center;
+        }
+        .hero-image-wrap {
+          order: -1;
+          margin-bottom: 2rem;
+        }
+        .hero-image {
+          width: 240px;
+          height: 300px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        nav {
+          padding: 1.25rem 1.5rem;
+        }
+        .nav-links {
+          gap: 1.5rem;
+        }
+        section {
+          padding: 5rem 1.5rem;
+        }
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .post-item {
+          grid-template-columns: 1fr;
+          gap: 0.4rem;
+        }
+        .post-tag {
+          display: none;
+        }
+        footer {
+          flex-direction: column;
+          gap: 0.5rem;
+          text-align: center;
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="navbar">
+      <a class="nav-logo" href="#">Back to Main</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+     <section id="hero" >
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-tag">// Software Engineer</p>
+        <h1 class="hero-name">Payam<br /><em>Tajdivand.</em></h1>
+        <p class="hero-desc">Passionate about web development, obsessed with new tech, and always a work in progress.</p>
+        <p class="hero-scroll">Scroll to explore</p>
+      </div>
+      <div class="hero-image-wrap">
+        <img class="hero-image" src="profile-image.jpeg" alt="Profile photo" />
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <p class="section-label">01 — ABOUT</p>
+      <div class="about-grid">
+        <div>
+          <h2 class="about-heading">Craft over<br /><em>shortcuts.</em></h2>
+        </div>
+        <div class="about-text">
+<p>I'm a software engineer who loves open source and staying on the edge of what's new — whether that's the latest AI tools, emerging frameworks, or better ways to write software that lasts.</p>
+<p>I believe in getting 1% better every day. Currently diving deep into distributed systems and the rapidly evolving AI landscape.</p>
+          <div class="skills-row">
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">CSS3</span>
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">Redux</span>
+            <span class="skill-tag">Tailwind</span>
+            <span class="skill-tag">AI agents</span>
+            <span class="skill-tag">BootStrap</span>
+            <span class="skill-tag">Git</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <p class="section-label">02 — CONTACT</p>
+      <h2 class="contact-heading">Let's build<br /><em>something.</em></h2>
+      <div class="contact-links">
+        <a href="mailto:payamtaj.dev@gmail.com" class="contact-link">
+          <span class="contact-link-name">Email</span>
+          <div style="display: flex; align-items: center; gap: 1.5rem">
+            <span class="contact-link-url">payamtaj.dev@gmail.com</span>
+            <span class="arrow">↗</span>
+          </div>
+        </a>
+        <a href="https://github.com/payamtajdivand" target="_blank" class="contact-link">
+          <span class="contact-link-name">GitHub</span>
+          <div style="display: flex; align-items: center; gap: 1.5rem">
+            <span class="contact-link-url">github.com/payamtajdivand</span>
+            <span class="arrow">↗</span>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/payam-tajdivand" target="_blank" class="contact-link">
+          <span class="contact-link-name">LinkedIn</span>
+          <div style="display: flex; align-items: center; gap: 1.5rem">
+            <span class="contact-link-url">linkedin.com/in/payam-tajdivand</span>
+            <span class="arrow">↗</span>
+          </div>
+        </a>
+    </section>
+
+    <footer>
+      <p>© 2026 Payam Tajdivand</p>
+      <p>Built with care — no frameworks harmed.</p>
+    </footer>
+
+    <script>
+      // Scroll nav border
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        navbar.classList.toggle("scrolled", window.scrollY > 20);
+      });
+
+      // Scroll reveal
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      document
+        .querySelectorAll("#about , #contact")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
